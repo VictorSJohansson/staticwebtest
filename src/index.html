@@ -46,7 +46,7 @@
               headers: {
                   'Content-Type': 'application/json'
               },
-              body: JSON.stringify({ question: name })
+              body: JSON.stringify({ name: name })
           })
           .then(response => response.json())
           .then(data => {
