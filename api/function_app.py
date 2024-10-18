@@ -114,8 +114,8 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         except ValueError:
             pass
         else:
-            question = req_body.get('v')
-
+            question = req_body.get('question')
+    logging.info(f'Received question: {question}')
     if question:
         answer = call_ai(question)
         return func.HttpResponse(
