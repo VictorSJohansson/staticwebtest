@@ -44,7 +44,7 @@
     console.log('Sending question:', question);  
 
     // Skapa en POST-request
-    fetch('https://black-plant-0123f5803.5.azurestaticapps.net/api/message', {  // URL till din backend
+    fetch('/api/message', {  // URL till din backend
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'  // Ange att vi skickar JSON

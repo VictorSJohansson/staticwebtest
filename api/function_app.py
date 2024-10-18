@@ -111,6 +111,10 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
 
     #TODO: Add handling of chat history
     question = req.params.get('question')
+    return func.HttpResponse(
+             question,
+             status_code=200
+        )
     if not question:
         try:
             req_body = req.get_json()
