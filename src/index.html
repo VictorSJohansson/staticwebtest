@@ -36,13 +36,49 @@
       </div>
     </div>
     <script>
+
+function createMessage(user, message, links) {
+      const $message = document.createElement('li');
+      $message.classList.add('msa-chattbot__message');
+      $message.classList.add(
+         user === 'USER'
+            ? 'msa-chattbot__message--user'
+            : 'msa-chattbot__message--chattbot'
+      );
+      const $sender = document.createElement('span');
+      $sender.innerHTML = user === 'USER' ? 'Du: ' : 'Chattbot: ';
+      $message.appendChild($sender);
+
+      document.querySelector('.msa-chattbot__messages').appendChild($message);
+
+      const $messageText = document.createElement('span');
+      $messageText.innerHTML = message;
+      (links || []).forEach(({ label, url }) => {
+         let $link = document.createElement('a');
+         $link.setAttribute('href', url);
+         $link.innerHTML = label;
+         $messageText.appendChild($link);
+      });
+
+      if (user === 'CHATTBOTT') {
+         const $writingResponse = document.createElement('span');
+         $writingResponse.innerHTML = '...';
+         $message.appendChild($writingResponse);
+         setTimeout(() => {
+            $writingResponse.remove();
+            $message.appendChild($messageText);
+         }, 1000);
+      } else {
+         $message.appendChild($messageText);
+      }
+   }
  document.getElementById('submitBtn').addEventListener('click', function() {
     // Hämta värdet från textrutan
     const question = document.querySelector('.msa-chattbot__input textarea').value;
 
     // Logga frågan för att säkerställa att vi skickar rätt data
     console.log('Sending question:', question);  
-
+    createMessage('USER', question);
     // Skapa en POST-request
     fetch('/api/message', {  // URL till din backend
         method: 'POST',
