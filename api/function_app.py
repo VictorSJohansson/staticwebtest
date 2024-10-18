@@ -115,8 +115,9 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         try:
             req_body = req.get_json()
         except ValueError:
-            question = {"answer":"no question value"}#pass
-            return func.HttpResponse("Question valueerror")#(f"{answer}")
+            #question = {"answer":"no question value"}#pass
+            #return func.HttpResponse(question)#(f"{answer}")
+            pass
         else:
             question = req_body.get('question')
     #logging.info(f'Received question: {question}')
