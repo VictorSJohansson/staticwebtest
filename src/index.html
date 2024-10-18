@@ -18,23 +18,52 @@
     Update box whenever a msg is added
     Style all the things
     <div id="ChattbotHTML">
-    </div>
-    <style>.msa-chattbott__input.active {height: 600px} </style>
-    <div class="msa-chattbot">
-      <div class = "msa-chattbot__form">
-        <div class="msa-chattbot__image">
-          <!--<img alt="" src="/images/18.13948c0e18e810bfa0c4db9/1716280707813/chattbot.svg"/>-->
-          <img alt="" src="/images/18.7b93bdc1926c186b0b398/1728652476803/chattbot.svg">
-       </div>
-       <ul class="msa-chattbot__messages"></ul>
-       <div class="msa-chattbot__input">
-        <textarea placeholder="Skriv ditt meddelande här...">Hur tar man körkort?</textarea>
-        <input type="text" id="question" name="question" value="Hur tar man körkort?">
-     </div>
-     <button id="submitBtn">Skicka</button>
+      <div class="msa-chattbot">
+          <div class="msa-chattbot__form">
+              <div class="msa-chattbot__image">
+                  <img alt="" src="/images/chattbot.svg">
+              </div>
+              <ul class="msa-chattbot__messages"></ul>
+              <div class="msa-chattbot__input">
+                  <textarea placeholder="Skriv ditt meddelande här..." id="messageInput"></textarea>
+              </div>
+              <button id="submitBtn">Skicka</button>
+          </div>
       </div>
-    </div>
+  </div>
     <script>
+ document.getElementById('submitBtn').addEventListener('click', function() {
+    // Hämta värdet från textrutan
+    const question = document.querySelector('.msa-chattbot__input textarea').value;
+
+    // Logga frågan för att säkerställa att vi skickar rätt data
+    console.log('Sending question:', question);  
+    createMessage('USER', question);
+    document.querySelector('.msa-chattbot').classList.add('msa-chattbot--active');
+    // Skapa en POST-request
+    fetch('/api/message', {  // URL till din backend
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'  // Ange att vi skickar JSON
+        },
+        body: JSON.stringify({ question: question })  // Skicka frågan som en JSON-sträng
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.text();  // Använd 'text' om ditt svar inte är JSON
+    })
+    .then(data => {
+        // Hantera svaret från servern
+        createMessage('CHATTBOTT', data);
+        console.log('Success:', data);
+    })
+    .catch((error) => {
+        // Fånga och logga eventuella fel
+        console.error('Error:', error);
+    });
+});
 
 function createMessage(user, message, links) {
       const $message = document.createElement('li');
@@ -71,37 +100,6 @@ function createMessage(user, message, links) {
          $message.appendChild($messageText);
       }
    }
- document.getElementById('submitBtn').addEventListener('click', function() {
-    // Hämta värdet från textrutan
-    const question = document.querySelector('.msa-chattbot__input textarea').value;
-    document.querySelector('.msa-chattbot').classList.add('msa-chattbot--active');
-
-    // Logga frågan för att säkerställa att vi skickar rätt data
-    console.log('Sending question:', question);  
-    createMessage('USER', question);
-    // Skapa en POST-request
-    fetch('/api/message', {  // URL till din backend
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'  // Ange att vi skickar JSON
-        },
-        body: JSON.stringify({ question: question })  // Skicka frågan som en JSON-sträng
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.text();  // Använd 'text' om ditt svar inte är JSON
-    })
-    .then(data => {
-        // Hantera svaret från servern
-        console.log('Success:', data);
-    })
-    .catch((error) => {
-        // Fånga och logga eventuella fel
-        console.error('Error:', error);
-    });
-});
   </script>
   </main>
 </body>
