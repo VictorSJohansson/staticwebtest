@@ -68,7 +68,7 @@ def call_ai(question):
                             ),
                             "authentication": {
                                 "type": "api_key",
-                                "key": subscription_key
+                                "key": f"{subscription_key}"
                             }
                         },
                         "query_type": "vector_simple_hybrid", #testa enbart vektorsök också
@@ -109,26 +109,21 @@ def call_ai(question):
 def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
-    #TODO: Add handling of chat history
-    #question = req.params['question']
-    question = req.get_json()
-    return func.HttpResponse(
-             question,
-             status_code=200
-        )
+    question = req.params.get('question')
     if not question:
         try:
             req_body = req.get_json()
         except ValueError:
-            #question = {"answer":"no question value"}#pass
-            #return func.HttpResponse(question)#(f"{answer}")
             pass
         else:
             question = req_body.get('question')
-    #logging.info(f'Received question: {question}')
+
     if question:
-        answer = call_ai(question)
-        return func.HttpResponse(answer)
+        answer = call_ai("Hur tar man körkort?")
+        #print("Incoming request!")
+        #no need to show the source texts, let's just format the source links here instead
+
+        return func.HttpResponse(f"{answer}")
     else:
         return func.HttpResponse(
              "This HTTP triggered function executed successfully. Pass a question in the query string or in the request body for a an answer.",
