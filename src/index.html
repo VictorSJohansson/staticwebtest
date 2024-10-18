@@ -13,11 +13,10 @@
   <main>
     <h1></h1>
     Todo:
-    Create chat input
     Chat box to display messages
     Differentiate msgs from user and system
     Update box whenever a msg is added
-    Style the things
+    Style all the things
     <div id="ChattbotHTML">
     </div>
     <style>.msa-chattbott__input.active {height: 600px} </style>
@@ -75,6 +74,7 @@ function createMessage(user, message, links) {
  document.getElementById('submitBtn').addEventListener('click', function() {
     // Hämta värdet från textrutan
     const question = document.querySelector('.msa-chattbot__input textarea').value;
+    document.querySelector('.msa-chattbot').classList.add('msa-chattbot--active');
 
     // Logga frågan för att säkerställa att vi skickar rätt data
     console.log('Sending question:', question);  
