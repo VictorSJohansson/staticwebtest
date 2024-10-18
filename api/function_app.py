@@ -121,7 +121,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     #logging.info(f'Received question: {question}')
     if question:
         answer = call_ai(question)
-        return func.HttpResponse("Hello from backend! Reached call_ai")
+        return func.HttpResponse(answer)
     else:
         return func.HttpResponse(
              "This HTTP triggered function executed successfully. Pass a question in the query string or in the request body for a an answer.",
