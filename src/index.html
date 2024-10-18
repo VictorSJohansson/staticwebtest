@@ -56,8 +56,9 @@
     })
     .then(data => {
         // Hantera svaret från servern
-        createMessage('CHATTBOTT', data);
-        console.log('Success:', data);
+        const chatbotMessage = data.choices[0].message.content;  // Hämta chatbotens meddelande
+        createMessage('CHATTBOTT', chatbotMessage);  // Uppdatera chatten med meddelandet
+        console.log('Success:', chatbotMessage);
     })
     .catch((error) => {
         // Fånga och logga eventuella fel
