@@ -120,7 +120,11 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
 
     if question:
         answer = call_ai("Hur tar man körkort?")
-        return func.HttpResponse(answer) 
+        return func.HttpResponse(
+            json.dumps(answer),
+            mimetype="application/json",
+            status_code=200
+        )
         #print("Incoming request!")
         #no need to show the source texts, let's just format the source links here instead
         reply = "Vi gick väl igenom med frågan: " + question
