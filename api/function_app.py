@@ -89,9 +89,10 @@ def call_ai(question):
         }
     )
 
-    #answer = completion.to_json()
-    return completion
+    answer = completion.to_json()
+    #return completion
     answer = json.loads(answer)
+    return answer
     citations = answer['choices'][0]['message']['context']['citations']
     result = {'answer':answer['choices'][0]['message']['content'], 'sources': []}
     i = 0
