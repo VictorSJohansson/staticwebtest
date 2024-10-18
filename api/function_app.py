@@ -32,7 +32,7 @@ def convert_to_hyperlink(url_string):
     return url_string
 
 def call_ai(question):
-    return({"answer":"Hello from ai!"})
+    #return({"answer":"Hello from ai!"})
     completion = client.chat.completions.create(
         model=deployment,
         messages=[
@@ -89,8 +89,8 @@ def call_ai(question):
         }
     )
 
-    answer = completion.to_json()
-    return answer
+    #answer = completion.to_json()
+    return completion
     answer = json.loads(answer)
     citations = answer['choices'][0]['message']['context']['citations']
     result = {'answer':answer['choices'][0]['message']['content'], 'sources': []}
