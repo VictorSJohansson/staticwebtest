@@ -49,7 +49,7 @@
         headers: {
             'Content-Type': 'application/json'  // Ange att vi skickar JSON
         },
-        body: JSON.stringify({question:"Hur tar man körkort?"})  // Skicka frågan i body
+        body:'{"question":"Hur tar man körkort?"}'//#JSON.stringify({question:"Hur tar man körkort?"})  // Skicka frågan i body
     })
     .then(response => {
         if (!response.ok) {
