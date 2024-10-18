@@ -32,6 +32,7 @@ def convert_to_hyperlink(url_string):
     return url_string
 
 def call_ai(question):
+    return({"answer":"Hello from ai!"})
     completion = client.chat.completions.create(
         model=deployment,
         messages=[
