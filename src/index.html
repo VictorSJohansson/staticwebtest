@@ -37,26 +37,35 @@
     </div>
     <script>
       document.getElementById('submitBtn').addEventListener('click', function() {
-          // Hämta värdet från formuläret
-          const question = document.getElementById('question').value;
+    // Hämta värdet från textrutan
+    const question = document.querySelector('.msa-chattbot__input textarea').value;
 
-          // Skapa en POST-request
-          fetch('/api/message', { // Byt ut URL till din backend
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ question: question })
-          })
-          .then(response => response.json())
-          .then(data => {
-              // Hantera svaret från servern
-              console.log('Success:', data);
-          })
-          .catch((error) => {
-              console.error('Error:', error);
-          });
-      });
+    // Logga frågan för att säkerställa att vi skickar rätt data
+    console.log('Sending question:', question);  
+
+    // Skapa en POST-request
+    fetch('https://black-plant-0123f5803.5.azurestaticapps.net/api/message', {  // URL till din backend
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'  // Ange att vi skickar JSON
+        },
+        body: JSON.stringify({ question: question })  // Skicka frågan i body
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Hantera svaret från servern
+        console.log('Success:', data);
+    })
+    .catch((error) => {
+        // Fånga och logga eventuella fel
+        console.error('Error:', error);
+    });
+});
   </script>
   </main>
 </body>
