@@ -114,20 +114,16 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         try:
             req_body = req.get_json()
         except ValueError:
-            pass
+            question = {"answer":"no question value"}#pass
+            return func.HttpResponse("Question valueerror")#(f"{answer}")
         else:
             question = req_body.get('question')
     #logging.info(f'Received question: {question}')
     if question:
         answer = call_ai(question)
-        return func.HttpResponse(
-            json.dumps(answer),
-            mimetype="application/json",
-            status_code=200
-        )
+        return func.HttpResponse("Hello from backend! Reached call_ai")
     else:
         return func.HttpResponse(
-            json.dumps({ "message": "question not provided" }),
-            mimetype="application/json",
-            status_code=200
+             "This HTTP triggered function executed successfully. Pass a question in the query string or in the request body for a an answer.",
+             status_code=200
         )
