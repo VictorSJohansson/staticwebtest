@@ -29,8 +29,8 @@
        </div>
        <ul class="msa-chattbot__messages"></ul>
        <div class="msa-chattbot__input">
-        <textarea placeholder="Skriv ditt meddelande här...">Hej! Jag vill veta vilket stöd som finns för äldre?</textarea>
-        <input type="text" id="name" name="name">
+        <textarea placeholder="Skriv ditt meddelande här...">Hur tar man körkort?</textarea>
+        <input type="text" id="question" name="question">
      </div>
      <button id="submitBtn">Skicka</button>
       </div>
@@ -38,7 +38,7 @@
     <script>
       document.getElementById('submitBtn').addEventListener('click', function() {
           // Hämta värdet från formuläret
-          const name = document.getElementById('name').value;
+          const question = document.getElementById('question').value;
 
           // Skapa en POST-request
           fetch('/api/message', { // Byt ut URL till din backend
@@ -46,7 +46,7 @@
               headers: {
                   'Content-Type': 'application/json'
               },
-              body: JSON.stringify({ name: name })
+              body: JSON.stringify({ question: question })
           })
           .then(response => response.json())
           .then(data => {
