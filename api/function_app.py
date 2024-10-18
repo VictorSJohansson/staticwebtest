@@ -123,7 +123,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         #print("Incoming request!")
         #no need to show the source texts, let's just format the source links here instead
 
-        return func.HttpResponse(f"{answer}")
+        return func.HttpResponse("Vi gick väl igenom i alla fall")
     else:
         return func.HttpResponse(
              "This HTTP triggered function executed successfully. Pass a question in the query string or in the request body for a an answer.",
