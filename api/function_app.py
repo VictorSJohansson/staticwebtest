@@ -32,7 +32,7 @@ def convert_to_hyperlink(url_string):
     return url_string
 
 def call_ai(question):
-    return({"answer":"Hello from ai!"})
+    #return({"answer":"Hello from ai!"})
     completion = client.chat.completions.create(
         model=deployment,
         messages=[
@@ -120,10 +120,11 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
 
     if question:
         answer = call_ai("Hur tar man körkort?")
+        return func.HttpResponse(answer) 
         #print("Incoming request!")
         #no need to show the source texts, let's just format the source links here instead
         reply = "Vi gick väl igenom med frågan: " + question
-        return func.HttpResponse(reply)
+        # return func.HttpResponse(reply) #Denna funkar
         #return func.HttpResponse("Vi gick väl igenom i alla fall") #Denna funkar iaf.
     else:
         return func.HttpResponse(
