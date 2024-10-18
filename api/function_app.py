@@ -89,6 +89,7 @@ def call_ai(question):
     )
 
     answer = completion.to_json()
+    return answer
     answer = json.loads(answer)
     citations = answer['choices'][0]['message']['context']['citations']
     result = {'answer':answer['choices'][0]['message']['content'], 'sources': []}
@@ -99,7 +100,7 @@ def call_ai(question):
         result['sources'].append(convert_to_hyperlink(citation['title']))
         #result['sources'].append(citation['content'] + "/n Källa: " + convert_to_hyperlink(citation['title']))
     if not result:
-        result = "Hitta inget"  #Fixa till senare
+        result = {"answer":"Hitta inget men letade"}  #Fixa till senare
     return result
 
 @app.route(route="message")
@@ -115,7 +116,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
             pass
         else:
             question = req_body.get('question')
-    logging.info(f'Received question: {question}')
+    #logging.info(f'Received question: {question}')
     if question:
         answer = call_ai(question)
         return func.HttpResponse(
