@@ -36,7 +36,7 @@
       </div>
     </div>
     <script>
-      document.getElementById('submitBtn').addEventListener('click', function() {
+    document.getElementById('submitBtn').addEventListener('click', function() {
     // Hämta värdet från textrutan
     const question = document.querySelector('.msa-chattbot__input textarea').value;
 
@@ -49,7 +49,7 @@
         headers: {
             'Content-Type': 'application/json'  // Ange att vi skickar JSON
         },
-        body:{"question": question}//#JSON.stringify({question:"Hur tar man körkort?"})  // Skicka frågan i body
+        body: JSON.stringify({question: question})  // Skicka frågan i body
     })
     .then(response => {
         if (!response.ok) {
