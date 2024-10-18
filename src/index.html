@@ -55,6 +55,7 @@
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
+        console.log("incoming:", response.text)
         return response.json();
     })
     .then(data => {
