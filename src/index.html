@@ -57,7 +57,7 @@
     .then(data => {
         // Hantera svaret från servern
         const chatbotMessage = data.choices[0].message.content;  // Hämta chatbotens meddelande
-        createMessage('CHATTBOTT', chatbotMessage);  // Uppdatera chatten med meddelandet
+        createMessage('CHATTBOTT', decodeURIComponent(escape(chatbotMessage)));  // Uppdatera chatten med meddelandet
         console.log('Success:', chatbotMessage);
     })
     .catch((error) => {
