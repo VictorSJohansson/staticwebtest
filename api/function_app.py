@@ -1,7 +1,4 @@
-import azure.functions as func
-import logging
-import json
-
+import re
 import azure.functions as func
 import logging
 import os
@@ -27,6 +24,7 @@ def format_link(link):
     formatted_link = link.replace('___', '://').replace('_', '/')
     formatted_link = re.sub(r'\.(txt|pdf|json)$', '', formatted_link)
     return formatted_link
+
 def convert_to_hyperlink(url_string):
     # Ersätt `___` med `://` och `__` med `/`
     url_string = url_string.replace('___', '://').replace('_', '/')
