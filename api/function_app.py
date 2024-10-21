@@ -22,6 +22,11 @@ client = AzureOpenAI(
     api_version = "2024-05-01-preview"
 )
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
+def format_link(link):
+    # Byt ut '___' till '://', '_' till '/', och ta bort filändelser som .txt, .pdf, .json
+    formatted_link = link.replace('___', '://').replace('_', '/')
+    formatted_link = re.sub(r'\.(txt|pdf|json)$', '', formatted_link)
+    return formatted_link
 def convert_to_hyperlink(url_string):
     # Ersätt `___` med `://` och `__` med `/`
     url_string = url_string.replace('___', '://').replace('_', '/')
@@ -95,7 +100,7 @@ def call_ai(question):
     #return answer
     message = answer['choices'][0]['message']['content']
     citations = answer['choices'][0]['message']['context'].get('citations', [])
-    links = [citation['title'] for citation in citations if 'title' in citation]
+    links = [format_link(citation['title']) for citation in citations if 'title' in citation]
     processed_response = {
         'content': message,
         'links': links
