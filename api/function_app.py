@@ -95,7 +95,7 @@ def call_ai(question):
     #return answer
     message = answer['choices'][0]['message']['content']
     citations = answer['choices'][0]['message']['context'].get('citations', [])
-    links = [citation['url'] for citation in citations if 'url' in citation]
+    links = [citation['title'] for citation in citations if 'title' in citation]
     processed_response = {
         'content': message,
         'links': links
