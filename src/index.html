@@ -57,7 +57,7 @@
     .then(data => {
         // Hantera svaret från servern
         const parseddata = JSON.parse(data);
-        console.log("data: ", parseddata);
+        console.log("Data: ", parseddata);
         const chatbotMessage = parseddata.content;  // Hämta chatbotens meddelande
         createMessage('CHATTBOTT', decodeURIComponent(chatbotMessage));  // Uppdatera chatten med meddelandet
         console.log('Success:', chatbotMessage);
