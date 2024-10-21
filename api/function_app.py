@@ -92,7 +92,16 @@ def call_ai(question):
     answer = completion.to_json()
     #return completion
     answer = json.loads(answer)
-    return answer
+    #return answer
+    message = answer['choices'][0]['message']['content']
+    citations = answer['choices'][0]['message']['context'].get('citations', [])
+    links = [citation['url'] for citation in citations if 'url' in citation]
+    processed_response = {
+        'content': message,
+        'links': links
+    }
+    return processed_response
+
     citations = answer['choices'][0]['message']['context']['citations']
     result = {'answer':answer['choices'][0]['message']['content'], 'sources': []}
     i = 0
