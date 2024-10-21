@@ -56,17 +56,52 @@
     })
     .then(data => {
         // Hantera svaret från servern
-        const parseddata = JSON.parse(data);
-        console.log("Data: ", parseddata);
-        const chatbotMessage = parseddata.content;  // Hämta chatbotens meddelande
-        createMessage('CHATTBOTT', decodeURIComponent(chatbotMessage));  // Uppdatera chatten med meddelandet
-        console.log('Success:', chatbotMessage);
+    const parseddata = JSON.parse(data);
+    console.log("Data: ", parseddata);
+
+    // Hämta chatbotens meddelande och länkar
+    const chatbotMessage = parseddata.content;  // Hämta chatbotens meddelande
+    const links = parseddata.links || [];  // Hämta länkar om de finns
+
+    // Processa chatbotens meddelande för att lägga till länkar och ersätta [docX]
+    const finalMessage = processMessage(chatbotMessage, links);
+
+    // Uppdatera chatten med det bearbetade meddelandet
+    createMessage('CHATTBOTT', decodeURIComponent(finalMessage));  // Uppdatera chatten med meddelandet
+
+    console.log('Success:', finalMessage);
     })
     .catch((error) => {
         // Fånga och logga eventuella fel
         console.error('Error:', error);
     });
 });
+function processMessage(message, links) {
+    // Hitta alla [docX] i meddelandet
+    const docRegex = /\[doc(\d+)\]/g;
+    const sources = {};
+    
+    // Ersätt alla [docX] med (X) och samla in länkarna
+    const processedMessage = message.replace(docRegex, (match, p1) => {
+        const docNumber = parseInt(p1);
+        if (links[docNumber - 1]) {
+            // Spara länken i en referenslista
+            sources[docNumber] = links[docNumber - 1];
+            return `(${docNumber})`;
+        } else {
+            return `(X)`; // If no link exists for the docX
+        }
+    });
+
+    // Skapa källor-sektionen
+    let sourcesSection = "Källor:\n";
+    for (const [docNumber, link] of Object.entries(sources)) {
+        sourcesSection += `${docNumber}. <a href="${link}" target="_blank">${link}</a>\n`;
+    }
+
+    // Returnera hela meddelandet inklusive källor
+    return processedMessage + "\n\n" + sourcesSection;
+}
 
 function createMessage(user, message, links) {
       const $message = document.createElement('li');
