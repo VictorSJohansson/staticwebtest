@@ -59,7 +59,7 @@
         const parseddata = JSON.parse(data);
         console.log("data: ", parseddata);
         const chatbotMessage = parseddata.content;  // Hämta chatbotens meddelande
-        createMessage('CHATTBOTT', chatbotMessage);  // Uppdatera chatten med meddelandet
+        createMessage('CHATTBOTT', decodeURIComponent(chatbotMessage));  // Uppdatera chatten med meddelandet
         console.log('Success:', chatbotMessage);
     })
     .catch((error) => {
