@@ -20,6 +20,13 @@ client = AzureOpenAI(
 )
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 def format_link(link):
+        # Hantering för specifika PDF-länkar
+    if "rad_till_handledaren_a5_2021-03-03.pdf" in link:
+        return "https://www.transportstyrelsen.se/globalassets/global/publikationer-och-rapporter/vag/korkort/rad_till_handledaren_a5_2021-03-03.pdf"
+    
+    if "korkort---du-har-val-koll-pa-vad-som-galler_sv_2024.pdf" in link:
+        return "https://www.transportstyrelsen.se/globalassets/global/publikationer-och-rapporter/vag/korkort/korkort---du-har-val-koll-pa-vad-som-galler_sv_2024.pdf"
+
     # Byt ut '___' till '://', '_' till '/', och ta bort filändelser som .txt, .pdf, .json
     formatted_link = link.replace('___', '://').replace('_', '/')
     formatted_link = re.sub(r'\.(txt|pdf|json)$', '', formatted_link)
