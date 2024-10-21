@@ -73,7 +73,7 @@
     const finalMessage = processMessage(chatbotMessage, links);
 
     // Uppdatera chatten med det bearbetade meddelandet
-    createMessage('CHATTBOTT', decodeURIComponent(finalMessage));  // Uppdatera chatten med meddelandet
+    createMessage('CHATTBOTT', finalMessage);  // Uppdatera chatten med meddelandet
 
     console.log('Success:', finalMessage);
     })
