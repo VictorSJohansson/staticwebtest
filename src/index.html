@@ -159,62 +159,112 @@
    </div>
 </div>
 <script>
-   function createMessage(user, message, links) {
-      const $message = document.createElement('li');
-      $message.classList.add('msa-chattbot__message');
-      $message.classList.add(
-         user === 'USER'
-            ? 'msa-chattbot__message--user'
-            : 'msa-chattbot__message--chattbot'
-      );
-      const $sender = document.createElement('span');
-      $sender.innerHTML = user === 'USER' ? 'Du: ' : 'Chattbot: ';
-      $message.appendChild($sender);
+document.getElementById('startChatt').addEventListener('click', function() {
+  // Hämta värdet från textrutan
+  const question = document.querySelector('.msa-chattbot__input textarea').value;
 
-      document.querySelector('.msa-chattbot__messages').appendChild($message);
+  // Logga frågan för att säkerställa att vi skickar rätt data
+  console.log('Sending question:', question);  
+  createMessage('USER', question);
+  document.querySelector('.msa-chattbot').classList.add('msa-chattbot--active');
+  // Skapa en POST-request
+  fetch('/api/message', {  // URL till din backend
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'  // Ange att vi skickar JSON
+      },
+      body: JSON.stringify({ question: question })  // Skicka frågan som en JSON-sträng
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.text();  // Använd 'text' om ditt svar inte är JSON
+  })
+  .then(data => {
+      // Hantera svaret från servern
+  const parseddata = JSON.parse(data);
+  console.log("Data: ", parseddata);
 
-      const $messageText = document.createElement('span');
-      $messageText.innerHTML = message;
-      (links || []).forEach(({ label, url }) => {
-         let $link = document.createElement('a');
-         $link.setAttribute('href', url);
-         $link.innerHTML = label;
-         $messageText.appendChild($link);
-      });
+  // Hämta chatbotens meddelande och länkar
+  const chatbotMessage = parseddata.content;  // Hämta chatbotens meddelande
+  const links = parseddata.links || [];  // Hämta länkar om de finns
 
-      if (user === 'CHATTBOTT') {
-         const $writingResponse = document.createElement('span');
-         $writingResponse.innerHTML = '...';
-         $message.appendChild($writingResponse);
-         setTimeout(() => {
-            $writingResponse.remove();
-            $message.appendChild($messageText);
-         }, 1000);
+  // Processa chatbotens meddelande för att lägga till länkar och ersätta [docX]
+  const finalMessage = processMessage(chatbotMessage, links);
+
+  // Uppdatera chatten med det bearbetade meddelandet
+  createMessage('CHATTBOTT', finalMessage);  // Uppdatera chatten med meddelandet
+
+  console.log('Success:', finalMessage);
+  })
+  .catch((error) => {
+      // Fånga och logga eventuella fel
+      console.error('Error:', error);
+  });
+});
+function processMessage(message, links) {
+  // Hitta alla [docX] i meddelandet
+  const docRegex = /\[doc(\d+)\]/g;
+  const sources = {};
+  
+  // Ersätt alla [docX] med (X) och samla in länkarna
+  const processedMessage = message.replace(docRegex, (match, p1) => {
+      const docNumber = parseInt(p1);
+      if (links[docNumber - 1]) {
+          // Spara länken i en referenslista
+          sources[docNumber] = links[docNumber - 1];
+          return `(${docNumber})`;
       } else {
-         $message.appendChild($messageText);
+          return `(X)`; // If no link exists for the docX
       }
-   }
+  });
 
-   document.querySelector('#startChatt').addEventListener('click', () => {
-      const message = document.querySelector(
-         '.msa-chattbot__input textarea'
-      ).value;
-      if (!message || message === '') {
-         return;
-      }
-      document
-         .querySelector('.msa-chattbot')
-         .classList.add('msa-chattbot--active');
-      createMessage('USER', message);
-      document.querySelector('.msa-chattbot__input textarea').value = '';
-      setTimeout(() => {
-         createMessage(
-            'CHATTBOTT',
-            'För äldre erbjuder kommunen hjälp för att främja självständighet, såsom hemtjänst, särskilt boende, dagverksamhet, trygghetslarm och anhörigstöd. Det kan variera beroende på behov och kommun, men syftet är att underlätta vardagen och öka välbefinnandet för de äldre.',
-            [{ url: '/', label: 'Läs mer om stöd för äldre här' }]
-         );
-      }, 500);
-   });
+  // Skapa källor-sektionen
+  let sourcesSection = "Källor:\n";
+  for (const [docNumber, link] of Object.entries(sources)) {
+      sourcesSection += `${docNumber}. <a href="${link}" target="_blank">${link}</a>\n`;
+  }
+
+  // Returnera hela meddelandet inklusive källor
+  return processedMessage + "\n\n" + sourcesSection;
+}
+
+function createMessage(user, message, links) {
+    const $message = document.createElement('li');
+    $message.classList.add('msa-chattbot__message');
+    $message.classList.add(
+       user === 'USER'
+          ? 'msa-chattbot__message--user'
+          : 'msa-chattbot__message--chattbot'
+    );
+    const $sender = document.createElement('span');
+    $sender.innerHTML = user === 'USER' ? 'Du: ' : 'Chattbot: ';
+    $message.appendChild($sender);
+
+    document.querySelector('.msa-chattbot__messages').appendChild($message);
+
+    const $messageText = document.createElement('span');
+    $messageText.innerHTML = message;
+    (links || []).forEach(({ label, url }) => {
+       let $link = document.createElement('a');
+       $link.setAttribute('href', url);
+       $link.innerHTML = label;
+       $messageText.appendChild($link);
+    });
+
+    if (user === 'CHATTBOTT') {
+       const $writingResponse = document.createElement('span');
+       $writingResponse.innerHTML = '...';
+       $message.appendChild($writingResponse);
+       setTimeout(() => {
+          $writingResponse.remove();
+          $message.appendChild($messageText);
+       }, 1000);
+    } else {
+       $message.appendChild($messageText);
+    }
+ }
 </script>
 </div>
 </div>
