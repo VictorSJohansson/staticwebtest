@@ -615,14 +615,14 @@
     font-family: "Lexend";
     font-size: 18px;
     line-height: 27px;
-    white-space: normal; /* Behåll wrapping av övrig text */
+    white-space: wrap; /* Behåll wrapping av övrig text */
 }
   .msa-chattbot__message a {
-    display: inline;  /* Gör länkarna inline istället för block */
+    display: block;  
     margin-left: 5px; /* Litet mellanrum mellan nummer och länken */
     color: #4472c2;
     font-weight: 500;
-    white-space: normal;  /* Siffran och länken hålls ihop */
+    white-space: wrap;  /* Siffran och länken hålls ihop */
 }
 
   .msa-chattbot__message span:first-child {

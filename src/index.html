@@ -159,6 +159,8 @@
    </div>
 </div>
 <script>
+let conversationHistory = [];  // Lagra konversationshistoriken här
+
 document.getElementById('startChatt').addEventListener('click', function() {
     // Hämta värdet från textrutan och rensa textfältet
     const textarea = document.querySelector('.msa-chattbot__input textarea');
@@ -174,6 +176,9 @@ document.getElementById('startChatt').addEventListener('click', function() {
     console.log('Sending question:', question);
     createMessage('USER', question);
 
+    // Lägg till användarens fråga i konversationshistoriken
+    conversationHistory.push({ role: 'user', content: question });
+
     // Rensa textfältet
     textarea.value = '';
 
@@ -181,14 +186,17 @@ document.getElementById('startChatt').addEventListener('click', function() {
 
     // Skapa ett element för de tre punkterna och visa dem direkt
     const typingMessage = createTypingMessage();
-    
+
     // Skapa en POST-request
     fetch('/api/message', {  // URL till din backend
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'  // Ange att vi skickar JSON
         },
-        body: JSON.stringify({ question: question })  // Skicka frågan som en JSON-sträng
+        body: JSON.stringify({ 
+            question: question, 
+            conversationHistory: conversationHistory  // Skicka med konversationshistoriken 
+        })  // Skicka frågan som en JSON-sträng
     })
     .then(response => {
         if (!response.ok) {
@@ -204,6 +212,9 @@ document.getElementById('startChatt').addEventListener('click', function() {
         // Hämta chatbotens meddelande och länkar
         const chatbotMessage = parseddata.content;  // Hämta chatbotens meddelande
         const links = parseddata.links || [];  // Hämta länkar om de finns
+
+        // Lägg till chattbottens svar i konversationshistoriken
+        conversationHistory.push({ role: 'assistant', content: chatbotMessage });
 
         // Processa chatbotens meddelande för att lägga till länkar och ersätta [docX]
         const finalMessage = processMessage(chatbotMessage, links);
@@ -248,32 +259,27 @@ function processMessage(message, links) {
     const docRegex = /\[doc(\d+)\]/g;
     const sources = {};
 
-    // Ersätt alla **text** med <strong>text</strong> för att fetmarkera
-    const boldMessage = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-
     // Ersätt alla [docX] med (X) och samla in länkarna
-    const processedMessage = boldMessage.replace(docRegex, (match, p1) => {
+    const processedMessage = message.replace(docRegex, (match, p1) => {
         const docNumber = parseInt(p1);
         if (links[docNumber - 1]) {
             // Spara länken i en referenslista
             sources[docNumber] = links[docNumber - 1];
-            return `<strong>(${docNumber})</strong>`;  // Fetstil på siffran
+            return `<strong>(${docNumber})</strong>`;
         } else {
             return `(X)`; // If no link exists for the docX
         }
     });
 
-    // Skapa källor-sektionen
+    // Skapa källor-sektionen där varje länk har sin egen rad
     let sourcesSection = "<p><strong>Källor om du vill läsa vidare:</strong></p>";
     for (const [docNumber, link] of Object.entries(sources)) {
-        sourcesSection += `<strong>${docNumber}.</strong> <a href="${link}" target="_blank">${link}</a> `;
+        sourcesSection += `${docNumber}. <a href="${link}" target="_blank">${link}</a> `;
     }
 
     // Returnera hela meddelandet inklusive källor
     return processedMessage + "<br/><br/>" + sourcesSection;
 }
-
-
 
 function createMessage(user, message, links) {
     const $message = document.createElement('li');
@@ -301,6 +307,7 @@ function createMessage(user, message, links) {
 
     $message.appendChild($messageText);
 }
+
 
 
 </script>

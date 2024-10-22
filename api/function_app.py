@@ -41,16 +41,16 @@ def convert_to_hyperlink(url_string):
         url_string = url_string[:-5]
     return url_string
 
-def call_ai(question):
+def call_ai(question, conversation_history=None):
+    # Om det finns historik, inkludera den först, och lägg till det senaste meddelandet sist
+    messages = conversation_history if conversation_history else []
+    
+    # Lägg till den aktuella frågan sist i listan
+    messages.append({"role": "user", "content": question})
     #return({"answer":"Hello from ai!"})
     completion = client.chat.completions.create(
         model=deployment,
-        messages=[
-            {
-                "role": "user",
-                "content": question
-            }
-        ],
+        messages=messages,
         max_tokens=500,
         temperature=0.4,
         top_p=0.95,
@@ -128,29 +128,25 @@ def call_ai(question):
 def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
-    question = req.params.get('question')
-    if not question:
-        try:
-            req_body = req.get_json()
-        except ValueError:
-            pass
-        else:
-            question = req_body.get('question')
+    try:
+        req_body = req.get_json()
+    except ValueError:
+        return func.HttpResponse(
+            "Invalid JSON payload", status_code=400
+        )
+
+    question = req_body.get('question')
+    conversation_history = req_body.get('conversationHistory', [])  # Hämta historiken om den finns
 
     if question:
-        answer = call_ai(question)
+        answer = call_ai(question, conversation_history)  # Skicka med historiken till GPT
         return func.HttpResponse(
             json.dumps(answer),
             mimetype="application/json",
             status_code=200
         )
-        #print("Incoming request!")
-        #no need to show the source texts, let's just format the source links here instead
-        reply = "Vi gick väl igenom med frågan: " + question
-        # return func.HttpResponse(reply) #Denna funkar
-        #return func.HttpResponse("Vi gick väl igenom i alla fall") #Denna funkar iaf.
     else:
         return func.HttpResponse(
-             "This HTTP triggered function executed successfully. Pass a question in the query string or in the request body for a an answer.",
-             status_code=200
+            "Missing question in the payload",
+            status_code=400
         )
