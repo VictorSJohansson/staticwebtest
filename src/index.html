@@ -231,7 +231,7 @@ function createTypingMessage() {
     $message.appendChild($sender);
     
     const $writingResponse = document.createElement('span');
-    $writingResponse.innerHTML = '...';  // De tre punkterna för att indikera att chattbotten tänker
+    $writingResponse.innerHTML = '...';  // Respons på att chattbotten tänker
     $message.appendChild($writingResponse);
 
     document.querySelector('.msa-chattbot__messages').appendChild($message);
