@@ -281,7 +281,7 @@ function createMessage(user, message, links) {
     const $sender = document.createElement('span');
     $sender.innerHTML = user === 'USER' ? 'Du: ' : 'Chattbot: ';
     $message.appendChild($sender);
-
+   
     document.querySelector('.msa-chattbot__messages').appendChild($message);
 
     const $messageText = document.createElement('span');

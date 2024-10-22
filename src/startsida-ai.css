@@ -628,6 +628,9 @@
   .msa-chattbot__message span:last-child {
     display: block;
   }
+  .msa-chattbot__message--chattbot span {
+    white-space: pre-wrap;
+}
   .msa-chattbot__message--user::before, .msa-chattbot__message--chattbot::before {
     content: "";
     width: 16px;
