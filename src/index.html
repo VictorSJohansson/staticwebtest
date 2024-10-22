@@ -248,27 +248,31 @@ function processMessage(message, links) {
     const docRegex = /\[doc(\d+)\]/g;
     const sources = {};
 
+    // Ersätt alla **text** med <strong>text</strong> för att fetmarkera
+    const boldMessage = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
     // Ersätt alla [docX] med (X) och samla in länkarna
-    const processedMessage = message.replace(docRegex, (match, p1) => {
+    const processedMessage = boldMessage.replace(docRegex, (match, p1) => {
         const docNumber = parseInt(p1);
         if (links[docNumber - 1]) {
             // Spara länken i en referenslista
             sources[docNumber] = links[docNumber - 1];
-            return `(${docNumber})`;
+            return `<strong>(${docNumber})</strong>`;  // Fetstil på siffran
         } else {
-            return `<strong>(X)</strong>`; // If no link exists for the docX
+            return `(X)`; // If no link exists for the docX
         }
     });
 
     // Skapa källor-sektionen
     let sourcesSection = "<p><strong>Källor om du vill läsa vidare:</strong></p>";
     for (const [docNumber, link] of Object.entries(sources)) {
-        sourcesSection += `${docNumber}. <a href="${link}" target="_blank">${link}</a><br/> `;
+        sourcesSection += `<strong>${docNumber}.</strong> <a href="${link}" target="_blank">${link}</a> `;
     }
 
     // Returnera hela meddelandet inklusive källor
     return processedMessage + "<br/><br/>" + sourcesSection;
 }
+
 
 
 function createMessage(user, message, links) {
