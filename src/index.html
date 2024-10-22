@@ -247,7 +247,7 @@ function processMessage(message, links) {
     // Hitta alla [docX] i meddelandet
     const docRegex = /\[doc(\d+)\]/g;
     const sources = {};
-  
+
     // Ersätt alla [docX] med (X) och samla in länkarna
     const processedMessage = message.replace(docRegex, (match, p1) => {
         const docNumber = parseInt(p1);
@@ -260,14 +260,15 @@ function processMessage(message, links) {
         }
     });
 
-    // Skapa källor-sektionen
-    let sourcesSection = "Källor:\n";
+    // Skapa källor-sektionen där varje länk har sin egen rad
+    let sourcesSection = "<p><strong>Källor:</strong></p><ul>";
     for (const [docNumber, link] of Object.entries(sources)) {
-        sourcesSection += `${docNumber}. <a href="${link}" target="_blank">${link}</a>\n`;
+        sourcesSection += `<li>${docNumber}. <a href="${link}" target="_blank">${link}</a></li>`;
     }
+    sourcesSection += "</ul>";
 
     // Returnera hela meddelandet inklusive källor
-    return processedMessage + "\n\n" + sourcesSection;
+    return processedMessage + sourcesSection;
 }
 
 function createMessage(user, message, links) {
