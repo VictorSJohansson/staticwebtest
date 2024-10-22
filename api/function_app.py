@@ -138,7 +138,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
             question = req_body.get('question')
 
     if question:
-        answer = call_ai("Hur tar man körkort?")
+        answer = call_ai(question)
         return func.HttpResponse(
             json.dumps(answer),
             mimetype="application/json",
