@@ -1,0 +1,622 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+@font-face {
+   font-family: "remixicon";
+   src: url("https://skatteverket.se/download/18.13948c0e18e810bfa0c4dd7/1716282591008/remixicon.woff2") format("woff2");
+   src: url("/download/18.13948c0e18e810bfa0c4dd7/1716282591008/remixicon.woff2") format("woff2"),
+      url("/download/18.13948c0e18e810bfa0c4dd8/1716282596756/remixicon.eot") format("embedded-opentype"),
+      url("/download/18.13948c0e18e810bfa0c4dda/1716282602459/remixicon.woff") format("woff"),
+      url("/download/18.13948c0e18e810bfa0c4dd9/1716282602362/remixicon.ttf") format("truetype");
+   font-display: swap;
+}
+/* SITEVISION OVERRIDE */
+.sidrubrikxxh1x {
+  font-family: "Lexend";
+  font-weight: 700;
+  font-size: 52px;
+  line-height: 64px;
+  color: #385e9e;
+}
+
+.underrubrikxxh2x {
+  font-family: "Lexend";
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 42px;
+  color: #121e33;
+}
+@media screen and (min-width: 769px) {
+  .underrubrikxxh2x {
+    font-size: 32px;
+    line-height: 48px;
+  }
+}
+
+.underrubrikxxh3x {
+  font-family: "Lexend";
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 36px;
+  color: #121e33;
+}
+
+.ingress {
+  font-family: "Lexend";
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 36px;
+}
+.ingress strong {
+  font-weight: 700;
+}
+@media screen and (min-width: 769px) {
+  .ingress {
+    font-size: 28px;
+    line-height: 42px;
+  }
+}
+
+.sv-linkicon {
+  display: none;
+}
+
+.sv-portlet h2,
+.sv-old-text-portlet h2,
+.sv-portlet .underrubrikxxh2x,
+.sv-old-text-portlet .underrubrikxxh2x,
+.sv-portlet h3,
+.sv-old-text-portlet h3,
+.sv-portlet .underrubrikxxh3x,
+.sv-old-text-portlet .underrubrikxxh3x,
+.sv-portlet h4,
+.sv-old-text-portlet h4,
+.sv-portlet .underrubrikxxh4x,
+.sv-old-text-portlet .underrubrikxxh4x,
+.sv-portlet h5,
+.sv-old-text-portlet h5,
+.sv-portlet .underrubrikxxh5x,
+.sv-old-text-portlet .underrubrikxxh5x {
+  display: block;
+}
+
+.portlet-font,
+.portlet-font-label,
+.portlet-font-dim,
+.portlet-msg-status,
+.portlet-msg-info,
+.portlet-msg-error,
+.portlet-msg-alert,
+.portlet-msg-success,
+.portlet-section-header,
+.portlet-section-body,
+.portlet-section-alternate,
+.portlet-section-selected,
+.portlet-section-subheader,
+.portlet-section-footer,
+.portlet-section-text,
+.portlet-form-label,
+.portlet-form-input-field,
+.portlet-form-button,
+.portlet-icon-label,
+.portlet-dlg-icon-label,
+.portlet-form-field-label,
+.portlet-form-field,
+.portlet-menu,
+.portlet-menu-item,
+.portlet-menu-item-selected,
+.portlet-menu-item-hover,
+.portlet-menu-item-hover-selected,
+.portlet-menu-cascade-item,
+.portlet-menu-cascade-item-selected,
+.portlet-menu-description,
+.portlet-menu-caption,
+.sv-portlet-image-caption,
+.sv-portlet-table-caption,
+.sv-portlet-link-description,
+.sv-portlet-primary-paragraph,
+.normal {
+  font-family: "Lexend";
+}
+
+.msa-header {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.msa-header > .sv-layout:nth-child(1) {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1488px;
+  margin: auto;
+  box-sizing: border-box;
+  flex-direction: column;
+  box-shadow: 0px 2px 8px 0px rgba(0, 51, 102, 0.2);
+  border-top: 4px solid #294575;
+}
+@media screen and (min-width: 769px) {
+  .msa-header > .sv-layout:nth-child(1) {
+    box-shadow: unset;
+    border-top: unset;
+  }
+}
+.msa-header > .sv-layout:nth-child(1) > .sv-layout:nth-child(1) {
+  display: flex;
+  width: 100%;
+  padding: 13px 20px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e3e3e3;
+  justify-content: space-between;
+  align-items: center;
+}
+@media screen and (min-width: 769px) {
+  .msa-header > .sv-layout:nth-child(1) > .sv-layout:nth-child(1) {
+    padding: 30px;
+  }
+}
+.msa-header > .sv-layout:nth-child(1) > .sv-layout:nth-child(2) {
+  display: flex;
+  width: 100%;
+  padding: 18px;
+  box-sizing: border-box;
+  justify-content: end;
+}
+@media screen and (min-width: 769px) {
+  .msa-header > .sv-layout:nth-child(1) > .sv-layout:nth-child(2) {
+    display: none;
+  }
+}
+.msa-header > .sv-layout:nth-child(1) .msa-header-hamburger {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Lexend";
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 27px;
+}
+.msa-header > .sv-layout:nth-child(1) .msa-header-hamburger::before {
+  content: "\ef3e";
+  font-family: "remixicon";
+  font-size: 24px;
+  margin-right: 5px;
+}
+@media screen and (min-width: 769px) {
+  .msa-header > .sv-layout:nth-child(1) .msa-header-hamburger {
+    display: none;
+  }
+}
+.msa-header > .sv-layout:nth-child(2) {
+  width: 100%;
+  align-items: center;
+  background-color: #294575;
+}
+@media screen and (min-width: 769px) {
+  .msa-header {
+    margin-top: 0px;
+  }
+  .msa-header::before {
+    content: none;
+  }
+}
+.msa-header::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #294575;
+}
+.msa-header .sv-text-portlet .sv-text-portlet-content p {
+  margin-bottom: 0;
+  font-weight: 600;
+  font-size: 16px;
+}
+.msa-header .sv-image-portlet img {
+  width: 238px;
+}
+@media screen and (min-width: 769px) {
+  .msa-header .sv-image-portlet img {
+    width: 360px;
+  }
+}
+
+.msa-footer {
+  width: 100%;
+  background-color: #294575;
+  margin-top: 8px;
+}
+@media screen and (min-width: 769px) {
+  .msa-footer {
+    margin-top: 136px;
+  }
+}
+.msa-footer > .sv-use-margins:first-child h2 {
+  margin-top: 0;
+}
+.msa-footer > .sv-use-margins:last-child p {
+  margin-bottom: 0;
+}
+.msa-footer p.normal:has(> a) {
+  margin-bottom: 8px;
+}
+.msa-footer > .sv-vertical > .sv-horizontal {
+  display: flex;
+  max-width: 1488px;
+  margin: auto;
+  padding: 40px 18px;
+  box-sizing: border-box;
+  justify-content: space-between;
+  flex-direction: column;
+}
+@media screen and (min-width: 769px) {
+  .msa-footer > .sv-vertical > .sv-horizontal {
+    flex-direction: row;
+    padding: 88px 30px 24px 30px;
+  }
+}
+.msa-footer > .sv-vertical > .sv-horizontal > .sv-horizontal-column {
+  margin-bottom: 32px;
+}
+.msa-footer > .sv-vertical > .sv-horizontal > .sv-text-portlet {
+  width: 100%;
+}
+@media screen and (min-width: 769px) {
+  .msa-footer > .sv-vertical > .sv-horizontal > .sv-text-portlet {
+    width: 33.3333333333%;
+  }
+}
+.msa-footer > .sv-vertical > .sv-horizontal > .sv-text-portlet h2 {
+  width: 100%;
+  border-bottom: 1px solid white;
+  padding-bottom: 16px;
+  margin-top: 0px;
+}
+@media screen and (min-width: 769px) {
+  .msa-footer > .sv-vertical > .sv-horizontal > .sv-text-portlet h2 {
+    width: 90%;
+  }
+}
+.msa-footer > .sv-vertical > .sv-image-portlet {
+  background-color: white;
+  text-align: center;
+  padding: 40px 0;
+}
+.msa-footer > .sv-vertical > .sv-image-portlet img {
+  width: 237px;
+}
+@media screen and (min-width: 769px) {
+  .msa-footer > .sv-vertical > .sv-image-portlet img {
+    width: 360px;
+  }
+}
+.msa-footer a {
+  color: white;
+  font-family: "Lexend";
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 27px;
+  text-align: left;
+}
+.msa-footer a:focus, .msa-footer a:hover {
+  color: white;
+}
+.msa-footer a::after {
+  font-family: "remixicon";
+  content: "\ea6e";
+}
+.msa-footer h2 {
+  color: white;
+  font-family: "Lexend";
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 36px;
+}
+
+.msa-header-menu {
+  display: none;
+}
+@media screen and (min-width: 769px) {
+  .msa-header-menu {
+    display: block;
+    width: 100%;
+    max-width: 1488px;
+    margin: auto;
+    padding: 0 30px;
+    box-sizing: border-box;
+  }
+}
+.msa-header-menu__list {
+  width: 100%;
+  max-width: 1488px;
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.msa-header-menu__item {
+  margin: 0 10px;
+  padding-top: 4px;
+  border-bottom: 4px solid transparent;
+}
+.msa-header-menu__item:first-of-type {
+  margin-left: 0;
+}
+.msa-header-menu__item--active {
+  border-bottom: 4px solid white;
+}
+@media screen and (min-width: 969px) {
+  .msa-header-menu__item {
+    margin: 0 20px;
+  }
+}
+.msa-header-menu__link {
+  font-family: "Lexend";
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22.5px;
+  color: white;
+  text-decoration: none;
+  margin: 20px 0px;
+  display: flex;
+}
+@media screen and (min-width: 969px) {
+  .msa-header-menu__link {
+    font-size: 18px;
+  }
+}
+
+.msa-listen-button {
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 400;
+  padding: 5px 12px;
+  margin: 0 0 16px 0;
+  cursor: pointer;
+  text-decoration: none;
+  background-color: #dde3e9;
+  border-radius: 32px;
+  border: solid 4px #dde3e9;
+  background-color: #f7f2ed;
+}
+.msa-listen-button::before {
+  font-family: "remixicon";
+  content: "\f2a1";
+  margin-right: 8px;
+}
+
+.msa-breadcrumbs__list {
+  padding: 32px 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+}
+.msa-breadcrumbs__item {
+  display: none;
+}
+.msa-breadcrumbs__item:nth-last-child(2) {
+  display: block;
+}
+.msa-breadcrumbs__item:nth-last-child(2)::before {
+  content: "\ea60";
+  font-family: "remixicon";
+  color: #3069a1;
+  font-size: 20px;
+  margin-right: 12px;
+}
+@media screen and (min-width: 769px) {
+  .msa-breadcrumbs__item:nth-last-child(2)::before {
+    content: none;
+  }
+}
+@media screen and (min-width: 769px) {
+  .msa-breadcrumbs__item {
+    display: block;
+  }
+  .msa-breadcrumbs__item:not(:has(a, span)) {
+    display: none;
+  }
+  .msa-breadcrumbs__item:not(:last-child):after {
+    content: "\ea6e";
+    font-family: "remixicon";
+    font-size: 20px;
+    color: #333333;
+    padding: 2px;
+  }
+}
+.msa-breadcrumbs__item a,
+.msa-breadcrumbs__item span {
+  color: #3069a1;
+  font-family: "Lexend";
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+}
+.msa-breadcrumbs__item span {
+  color: #333333;
+}
+
+#Toppytainnehallssida ~ .sv-layout {
+  display: flex;
+  flex-direction: column-reverse;
+}
+#Toppytainnehallssida ~ .sv-layout h1,
+#Toppytainnehallssida ~ .sv-layout p {
+  overflow-wrap: anywhere;
+}
+#Toppytainnehallssida ~ .sv-layout .sv-layout:nth-child(1) {
+  width: 100%;
+  margin: 0;
+}
+#Toppytainnehallssida ~ .sv-layout .sv-layout:nth-child(1) .ingress {
+  font-family: "Lexend";
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 42px;
+}
+#Toppytainnehallssida ~ .sv-layout .sv-layout:nth-child(2) {
+  width: 100%;
+  margin: 0;
+}
+#Toppytainnehallssida ~ .sv-layout .sv-layout:nth-child(2) .sv-image-portlet {
+  overflow: hidden;
+  border-radius: 16px;
+}
+#Toppytainnehallssida ~ .sv-layout .sv-layout:nth-child(2) .sv-text-portlet p {
+  font-family: "Lexend";
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 27px;
+  margin: 20px 10px;
+}
+@media screen and (min-width: 769px) {
+  #Toppytainnehallssida ~ .sv-layout {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  #Toppytainnehallssida ~ .sv-layout .sv-layout:nth-child(1) {
+    width: 48.9795918367%;
+  }
+  #Toppytainnehallssida ~ .sv-layout .sv-layout:nth-child(2) {
+    width: 40.4761904762%;
+  }
+  #Toppytainnehallssida ~ .sv-layout .sv-layout:only-child {
+    max-width: 840px;
+    width: 100%;
+  }
+}
+
+#Toppytakategorisida ~ .sv-layout {
+  display: flex;
+  flex-direction: column-reverse;
+}
+#Toppytakategorisida ~ .sv-layout h1,
+#Toppytakategorisida ~ .sv-layout p {
+  overflow-wrap: anywhere;
+}
+#Toppytakategorisida ~ .sv-layout > .sv-layout:nth-child(1) {
+  width: 100%;
+  margin: 0;
+}
+#Toppytakategorisida ~ .sv-layout > .sv-layout:nth-child(1) .ingress {
+  font-family: "Lexend";
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 42px;
+}
+#Toppytakategorisida ~ .sv-layout > .sv-layout:nth-child(2) {
+  width: 62px;
+  margin-bottom: 16px;
+}
+#Toppytakategorisida ~ .sv-layout > .sv-layout:nth-child(2) .sv-image-portlet {
+  overflow: hidden;
+  border-radius: 16px;
+}
+#Toppytakategorisida ~ .sv-layout > .sv-layout:nth-child(2) .sv-text-portlet p {
+  font-family: "Lexend";
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 27px;
+  margin: 20px 10px;
+}
+@media screen and (min-width: 769px) {
+  #Toppytakategorisida ~ .sv-layout {
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 64px;
+  }
+  #Toppytakategorisida ~ .sv-layout > .sv-layout:nth-child(1) {
+    width: calc(100% - 240px - 100px);
+  }
+  #Toppytakategorisida ~ .sv-layout > .sv-layout:nth-child(2) {
+    width: 240px;
+    margin-bottom: 0;
+  }
+  #Toppytakategorisida ~ .sv-layout > .sv-layout:only-child {
+    max-width: 840px;
+    width: 100%;
+  }
+}
+
+#Toppytastartsida ~ .sv-layout {
+  display: flex;
+  flex-direction: column-reverse;
+}
+#Toppytastartsida ~ .sv-layout ~ .sv-layout {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 50px;
+}
+#Toppytastartsida ~ .sv-layout h1,
+#Toppytastartsida ~ .sv-layout p {
+  overflow-wrap: anywhere;
+}
+#Toppytastartsida ~ .sv-layout .sv-layout:nth-child(1) {
+  width: 100%;
+  margin: 0;
+}
+#Toppytastartsida ~ .sv-layout .sv-layout:nth-child(1) .ingress {
+  font-family: "Lexend";
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 42px;
+}
+#Toppytastartsida ~ .sv-layout .sv-layout:nth-child(2) {
+  width: 100%;
+  margin: 40px 0 0 0;
+}
+#Toppytastartsida ~ .sv-layout .sv-layout:nth-child(2) .sv-image-portlet {
+  border-radius: 16px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+#Toppytastartsida ~ .sv-layout .sv-layout:nth-child(2) .sv-text-portlet p {
+  font-family: "Lexend";
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 27px;
+  margin: 20px 10px;
+}
+@media screen and (min-width: 769px) {
+  #Toppytastartsida ~ .sv-layout {
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  #Toppytastartsida ~ .sv-layout ~ .sv-layout {
+    margin-top: -80px;
+    padding-bottom: 80px;
+  }
+  #Toppytastartsida ~ .sv-layout .sv-layout:nth-child(1) {
+    margin-top: 80px;
+    width: 48.9795918367%;
+  }
+  #Toppytastartsida ~ .sv-layout .sv-layout:nth-last-child(2) {
+    margin-bottom: 80px;
+  }
+  #Toppytastartsida ~ .sv-layout .sv-layout:nth-child(2) {
+    margin: 0;
+    width: 47.5%;
+    display: flex;
+    align-items: flex-end;
+  }
+  #Toppytastartsida ~ .sv-layout .sv-layout:nth-child(2) img {
+    position: absolute;
+    left: 0;
+    top: 40px;
+  }
+  #Toppytastartsida ~ .sv-layout .sv-layout:only-child {
+    max-width: 840px;
+    width: 100%;
+  }
+}
+
+a {
+  scroll-margin-top: 50px;
+}
+
+/*# sourceMappingURL=rotmall.css.map */
