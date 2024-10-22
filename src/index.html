@@ -84,7 +84,7 @@
 <div id="svid10_13948c0e18e810bfa0c477b" class="sv-layout"><div class="sv-html-portlet sv-portlet sv-skip-spacer sv-template-portlet
 " id="svid12_13948c0e18e810bfa0c58af"><div id="Testwebbmeddelande"><!-- Testwebb-meddelande --></div><div class="testmsg">
    <h2>
-      Välkommen till vår testwebb
+      Välkommen till vår testwebb med AI
 	</h2>
    <p>
       Här testar och utvecklar myndigheter i Sverige en gemensam webbplats för privatpersoner.<br>
@@ -160,83 +160,123 @@
 </div>
 <script>
 document.getElementById('startChatt').addEventListener('click', function() {
-  // Hämta värdet från textrutan
-  const question = document.querySelector('.msa-chattbot__input textarea').value;
+    // Hämta värdet från textrutan och rensa textfältet
+    const textarea = document.querySelector('.msa-chattbot__input textarea');
+    const question = textarea.value.trim();
 
-  // Logga frågan för att säkerställa att vi skickar rätt data
-  console.log('Sending question:', question);  
-  createMessage('USER', question);
-  document.querySelector('.msa-chattbot').classList.add('msa-chattbot--active');
-  // Skapa en POST-request
-  fetch('/api/message', {  // URL till din backend
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'  // Ange att vi skickar JSON
-      },
-      body: JSON.stringify({ question: question })  // Skicka frågan som en JSON-sträng
-  })
-  .then(response => {
-      if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.text();  // Använd 'text' om ditt svar inte är JSON
-  })
-  .then(data => {
-      // Hantera svaret från servern
-  const parseddata = JSON.parse(data);
-  console.log("Data: ", parseddata);
+    // Kontrollera att frågan inte är tom
+    if (question === '') {
+        alert('Skriv en fråga innan du skickar!');
+        return;
+    }
 
-  // Hämta chatbotens meddelande och länkar
-  const chatbotMessage = parseddata.content;  // Hämta chatbotens meddelande
-  const links = parseddata.links || [];  // Hämta länkar om de finns
+    // Logga frågan för att säkerställa att vi skickar rätt data
+    console.log('Sending question:', question);
+    createMessage('USER', question);
 
-  // Processa chatbotens meddelande för att lägga till länkar och ersätta [docX]
-  const finalMessage = processMessage(chatbotMessage, links);
+    // Rensa textfältet
+    textarea.value = '';
 
-  // Uppdatera chatten med det bearbetade meddelandet
-  createMessage('CHATTBOTT', finalMessage);  // Uppdatera chatten med meddelandet
+    document.querySelector('.msa-chattbot').classList.add('msa-chattbot--active');
 
-  console.log('Success:', finalMessage);
-  })
-  .catch((error) => {
-      // Fånga och logga eventuella fel
-      console.error('Error:', error);
-  });
+    // Skapa ett element för de tre punkterna och visa dem direkt
+    const typingMessage = createTypingMessage();
+    
+    // Skapa en POST-request
+    fetch('/api/message', {  // URL till din backend
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'  // Ange att vi skickar JSON
+        },
+        body: JSON.stringify({ question: question })  // Skicka frågan som en JSON-sträng
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.text();  // Använd 'text' om ditt svar inte är JSON
+    })
+    .then(data => {
+        // Hantera svaret från servern
+        const parseddata = JSON.parse(data);
+        console.log("Data: ", parseddata);
+
+        // Hämta chatbotens meddelande och länkar
+        const chatbotMessage = parseddata.content;  // Hämta chatbotens meddelande
+        const links = parseddata.links || [];  // Hämta länkar om de finns
+
+        // Processa chatbotens meddelande för att lägga till länkar och ersätta [docX]
+        const finalMessage = processMessage(chatbotMessage, links);
+
+        // Ta bort de tre punkterna (den väntande indikatorn)
+        removeTypingMessage(typingMessage);
+
+        // Uppdatera chatten med det bearbetade meddelandet
+        createMessage('CHATTBOTT', finalMessage);  // Uppdatera chatten med meddelandet
+
+        console.log('Success:', finalMessage);
+    })
+    .catch((error) => {
+        // Fånga och logga eventuella fel
+        console.error('Error:', error);
+    });
 });
+
+function createTypingMessage() {
+    const $message = document.createElement('li');
+    $message.classList.add('msa-chattbot__message', 'msa-chattbot__message--chattbot');
+    
+    const $sender = document.createElement('span');
+    $sender.innerHTML = 'Chattbot: ';
+    $message.appendChild($sender);
+    
+    const $writingResponse = document.createElement('span');
+    $writingResponse.innerHTML = '...';  // De tre punkterna för att indikera att chattbotten tänker
+    $message.appendChild($writingResponse);
+
+    document.querySelector('.msa-chattbot__messages').appendChild($message);
+    
+    return $message;  // Returnera elementet så att vi kan ta bort det senare
+}
+
+function removeTypingMessage(typingMessage) {
+    typingMessage.remove();  // Ta bort de tre punkterna när svaret kommer
+}
+
 function processMessage(message, links) {
-  // Hitta alla [docX] i meddelandet
-  const docRegex = /\[doc(\d+)\]/g;
-  const sources = {};
+    // Hitta alla [docX] i meddelandet
+    const docRegex = /\[doc(\d+)\]/g;
+    const sources = {};
   
-  // Ersätt alla [docX] med (X) och samla in länkarna
-  const processedMessage = message.replace(docRegex, (match, p1) => {
-      const docNumber = parseInt(p1);
-      if (links[docNumber - 1]) {
-          // Spara länken i en referenslista
-          sources[docNumber] = links[docNumber - 1];
-          return `(${docNumber})`;
-      } else {
-          return `(X)`; // If no link exists for the docX
-      }
-  });
+    // Ersätt alla [docX] med (X) och samla in länkarna
+    const processedMessage = message.replace(docRegex, (match, p1) => {
+        const docNumber = parseInt(p1);
+        if (links[docNumber - 1]) {
+            // Spara länken i en referenslista
+            sources[docNumber] = links[docNumber - 1];
+            return `(${docNumber})`;
+        } else {
+            return `(X)`; // If no link exists for the docX
+        }
+    });
 
-  // Skapa källor-sektionen
-  let sourcesSection = "Källor:\n";
-  for (const [docNumber, link] of Object.entries(sources)) {
-      sourcesSection += `${docNumber}. <a href="${link}" target="_blank">${link}</a>\n`;
-  }
+    // Skapa källor-sektionen
+    let sourcesSection = "Källor:\n";
+    for (const [docNumber, link] of Object.entries(sources)) {
+        sourcesSection += `${docNumber}. <a href="${link}" target="_blank">${link}</a>\n`;
+    }
 
-  // Returnera hela meddelandet inklusive källor
-  return processedMessage + "\n\n" + sourcesSection;
+    // Returnera hela meddelandet inklusive källor
+    return processedMessage + "\n\n" + sourcesSection;
 }
 
 function createMessage(user, message, links) {
     const $message = document.createElement('li');
     $message.classList.add('msa-chattbot__message');
     $message.classList.add(
-       user === 'USER'
-          ? 'msa-chattbot__message--user'
-          : 'msa-chattbot__message--chattbot'
+        user === 'USER'
+            ? 'msa-chattbot__message--user'
+            : 'msa-chattbot__message--chattbot'
     );
     const $sender = document.createElement('span');
     $sender.innerHTML = user === 'USER' ? 'Du: ' : 'Chattbot: ';
@@ -247,24 +287,15 @@ function createMessage(user, message, links) {
     const $messageText = document.createElement('span');
     $messageText.innerHTML = message;
     (links || []).forEach(({ label, url }) => {
-       let $link = document.createElement('a');
-       $link.setAttribute('href', url);
-       $link.innerHTML = label;
-       $messageText.appendChild($link);
+        let $link = document.createElement('a');
+        $link.setAttribute('href', url);
+        $link.innerHTML = label;
+        $messageText.appendChild($link);
     });
 
-    if (user === 'CHATTBOTT') {
-       const $writingResponse = document.createElement('span');
-       $writingResponse.innerHTML = '...';
-       $message.appendChild($writingResponse);
-       setTimeout(() => {
-          $writingResponse.remove();
-          $message.appendChild($messageText);
-       }, 1000);
-    } else {
-       $message.appendChild($messageText);
-    }
- }
+    $message.appendChild($messageText);
+}
+
 </script>
 </div>
 </div>
