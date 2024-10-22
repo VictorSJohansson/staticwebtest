@@ -261,7 +261,7 @@ function processMessage(message, links) {
     });
 
     // Skapa källor-sektionen där varje länk har sin egen rad
-    let sourcesSection = "<p><strong>Källor:</strong></p><ul>";
+    let sourcesSection = "<p><strong>Källor där du kan läsa mer:</strong></p><ul>";
     for (const [docNumber, link] of Object.entries(sources)) {
         sourcesSection += `<li>${docNumber}. <a href="${link}" target="_blank">${link}</a></li>`;
     }
