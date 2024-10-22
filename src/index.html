@@ -256,7 +256,7 @@ function processMessage(message, links) {
             sources[docNumber] = links[docNumber - 1];
             return `(${docNumber})`;
         } else {
-            return `(X)`; // If no link exists for the docX
+            return `<strong>(X)</strong>`; // If no link exists for the docX
         }
     });
 
