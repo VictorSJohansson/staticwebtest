@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 @font-face {
    font-family: "remixicon";
-   src: url("https://skatteverket.se/download/18.13948c0e18e810bfa0c4dd7/1716282591008/remixicon.woff2") format("woff2");
-   src: url("/download/18.13948c0e18e810bfa0c4dd7/1716282591008/remixicon.woff2") format("woff2"),
-      url("/download/18.13948c0e18e810bfa0c4dd8/1716282596756/remixicon.eot") format("embedded-opentype"),
-      url("/download/18.13948c0e18e810bfa0c4dda/1716282602459/remixicon.woff") format("woff"),
-      url("/download/18.13948c0e18e810bfa0c4dd9/1716282602362/remixicon.ttf") format("truetype");
+   src: url("remixicon.woff2") format("woff2");
+   src: url("remixicon.woff2") format("woff2"),
+      url("remixicon.eot") format("embedded-opentype"),
+      url("remixicon.woff") format("woff"),
+      url("remixicon.ttf") format("truetype");
    font-display: swap;
 }
 /* SITEVISION OVERRIDE */
