@@ -285,6 +285,7 @@ function createMessage(user, message, links) {
     document.querySelector('.msa-chattbot__messages').appendChild($message);
 
     const $messageText = document.createElement('span');
+    $messageText.style.whiteSpace = 'pre-wrap';  // Bevarar radbrytningar
     $messageText.innerHTML = message;
     (links || []).forEach(({ label, url }) => {
         let $link = document.createElement('a');
@@ -295,6 +296,7 @@ function createMessage(user, message, links) {
 
     $message.appendChild($messageText);
 }
+
 
 </script>
 </div>
