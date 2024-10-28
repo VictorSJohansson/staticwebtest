@@ -620,7 +620,7 @@ button.msa-guides-more-button--show-more::before {
   display: block;
   color: #4472c2;
   font-weight: 500;
-  margin-top: 24px;
+  margin-left: 12px;
 }
 .msa-chattbot__message span:first-child {
   font-weight: bold;

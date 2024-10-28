@@ -726,5 +726,9 @@
       margin-bottom: 0;
     }
   }
+
+  .link-wraper {
+    display: flex;
+  }
   
   /*# sourceMappingURL=startsida-ai.css.map */

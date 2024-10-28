@@ -139,7 +139,7 @@
 </div>
 </div>
 <div class="sv-vertical sv-layout" id="svid10_7b93bdc1926c186b0b38f"><div class="sv-text-portlet sv-use-margins sv-skip-spacer" id="svid12_7b93bdc1926c186b0b391"><div id="Chattbottitel"><!-- Chattbot titel --></div><div class="sv-text-portlet-content"><h2 class="underrubrikxxh2x" id="h-Chattbot">Chattbot</h2></div></div>
-<div class="sv-text-portlet sv-use-margins" id="svid12_7b93bdc1926c186b0b392"><div id="Chattbotbrodtext"><!-- Chattbot brödtext --></div><div class="sv-text-portlet-content"><p class="normal">Fråga vår chattbot om vägledning genom livets olika situationer.</p></div></div>
+<div class="sv-text-portlet sv-use-margins" id="svid12_7b93bdc1926c186b0b392"><div id="Chattbotbrodtext"><!-- Chattbot brödtext --></div><div class="sv-text-portlet-content"><p class="normal">Fråga vår chattbot om vägledning genom livets olika situationer. Tänk på att chattboten kan svara fel.</p></div></div>
 <div class="sv-html-portlet sv-portlet" id="svid12_7b93bdc1926c186b0b390"><div id="ChattbotHTML"><!-- Chattbot (HTML) --></div><style>
    .msa-chattbott__input.active {
       height: 600px;
@@ -274,7 +274,7 @@ function processMessage(message, links) {
     // Skapa källor-sektionen där varje länk har sin egen rad
     let sourcesSection = "<p><strong>Källor om du vill läsa vidare:</strong></p>";
     for (const [docNumber, link] of Object.entries(sources)) {
-        sourcesSection += `${docNumber}. <a href="${link}" target="_blank">${link}</a> `;
+        sourcesSection += `<div class="link-wrapper"><span>${docNumber}.</span> <a href="${link}" target="_blank">${link}</a></div> `;
     }
 
     // Returnera hela meddelandet inklusive källor
