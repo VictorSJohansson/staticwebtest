@@ -730,5 +730,8 @@
   .link-wraper {
     display: flex;
   }
+  .link-wraper > span {
+    font-weight: 400;
+  }
   
   /*# sourceMappingURL=startsida-ai.css.map */
