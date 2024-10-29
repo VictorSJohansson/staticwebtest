@@ -249,7 +249,7 @@ function createTypingMessage() {
         typingIndicator.appendChild(dot);
     }
 
-    $message.appendChild($writingResponse);
+    $message.appendChild(typingIndicator);
 
     document.querySelector('.msa-chattbot__messages').appendChild($message);
     
