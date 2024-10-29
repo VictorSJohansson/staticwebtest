@@ -734,4 +734,40 @@
     font-weight: 400;
   }
   
+  .typing-indicator {
+    display: flex;
+    align-items: center;
+  }
+  
+  .typing-indicator span {
+    width: 8px;
+    height: 8px;
+    margin: 0 2px;
+    background-color: #4472c2; /* Anpassa färg efter design */
+    border-radius: 50%;
+    opacity: 0;
+    animation: typing 1.2s infinite ease-in-out;
+  }
+  
+  .typing-indicator span:nth-child(1) {
+    animation-delay: 0s;
+  }
+  
+  .typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  .typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  
+  @keyframes typing {
+    0%, 80%, 100% {
+      opacity: 0;
+    }
+    40% {
+      opacity: 1;
+    }
+  }
+  
   /*# sourceMappingURL=startsida-ai.css.map */

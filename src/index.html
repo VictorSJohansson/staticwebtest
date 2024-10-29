@@ -240,9 +240,15 @@ function createTypingMessage() {
     const $sender = document.createElement('span');
     $sender.innerHTML = 'Chattbot: ';
     $message.appendChild($sender);
+        // Skapa skrivindikatorn
+    const typingIndicator = document.createElement('div');
+    typingIndicator.classList.add('typing-indicator');
     
-    const $writingResponse = document.createElement('span');
-    $writingResponse.innerHTML = '...';  // Respons på att chattbotten tänker
+    for (let i = 0; i < 3; i++) {
+        const dot = document.createElement('span');
+        typingIndicator.appendChild(dot);
+    }
+
     $message.appendChild($writingResponse);
 
     document.querySelector('.msa-chattbot__messages').appendChild($message);
