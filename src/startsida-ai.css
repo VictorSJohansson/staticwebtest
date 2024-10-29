@@ -733,7 +733,7 @@
   .link-wrapper > span {
     font-weight: 400;
   }
-  
+
   .typing-indicator {
     display: flex;
     align-items: center;
@@ -741,7 +741,7 @@
   
   .typing-indicator span {
     width: 8px;
-    height: 8px;
+    height: 4px;
     margin: 0 2px;
     background-color: #4472c2; /* Anpassa färg efter design */
     border-radius: 50%;
