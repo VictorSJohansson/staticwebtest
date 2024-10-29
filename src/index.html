@@ -199,10 +199,13 @@ document.getElementById('startChatt').addEventListener('click', function() {
         })  // Skicka frågan som en JSON-sträng
     })
     .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+      if (!response.ok) {
+        if (response.status === 500) {
+            throw new Error("Rate limit exceeded");
         }
-        return response.text();  // Använd 'text' om ditt svar inte är JSON
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.text();
     })
     .then(data => {
         // Hantera svaret från servern
@@ -228,10 +231,13 @@ document.getElementById('startChatt').addEventListener('click', function() {
         console.log('Success:', finalMessage);
     })
     .catch((error) => {
-        // Fånga och logga eventuella fel
+      removeTypingMessage(typingMessage);
+      if (error.message === "Rate limit exceeded") {
+        createMessage('CHATTBOTT', "Just nu kommer förfrågningarna lite för snabbt. Eftersom detta enbart är en PoC så har vi satt in begränsningar i antal meddelanden. Försök igen om några sekunder.");
+      } else {
         console.error('Error:', error);
-    });
-});
+      }
+   });
 
 function createTypingMessage() {
     const $message = document.createElement('li');
