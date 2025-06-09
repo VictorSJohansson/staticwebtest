@@ -755,7 +755,22 @@ button.msa-guides-more-button--show-more::before {
 
 .prompt-panel textarea {
   width: 100%;
-  height: calc(100% - 40px);
-  resize: none;
+  height: calc(100% - 60px); /* Lämnar plats för knapp + padding */
+  resize: vertical;
+  min-height: 200px;
   font-family: monospace;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+}
+.prompt-apply-btn {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #ce430b;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
 }
