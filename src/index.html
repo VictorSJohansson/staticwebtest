@@ -348,3 +348,11 @@ function createMessage(user, message, links) {
       document.querySelector(".msa-linkbox-container").classList.add("msa-linkbox-container--limit");
    }
 </script>
+<!-- Toggle-knapp -->
+<button id="togglePromptPanel" class="prompt-toggle">⚙️ Prompt</button>
+
+<!-- Själva sidopanelen -->
+<div id="promptPanel" class="prompt-panel">
+   <h3>Systemprompt</h3>
+   <textarea id="systemPrompt" placeholder="Skriv systemprompt här...">Du är en hjälpsam AI som ger vägledning till privatpersoner i Sverige.</textarea>
+</div>
