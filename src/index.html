@@ -351,6 +351,8 @@ function createMessage(user, message, links) {
 <div id="promptPanel" class="prompt-panel">
    <h3>Systemprompt</h3>
    <textarea id="systemPrompt" placeholder="Skriv systemprompt här...">Du är en hjälpsam AI som ger vägledning till privatpersoner i Sverige.</textarea>
+   <button id="applyPromptBtn" class="prompt-apply-btn">Använd systemprompt</button>
+
 </div>
 <script>
    document.getElementById('togglePromptPanel').addEventListener('click', function () {
@@ -358,6 +360,29 @@ function createMessage(user, message, links) {
      panel.classList.toggle('open');
    });
  </script>
+ <script>
+   let systemPrompt = document.getElementById('systemPrompt').value; // default prompt
+ 
+   document.getElementById('applyPromptBtn').addEventListener('click', function () {
+     systemPrompt = document.getElementById('systemPrompt').value.trim();
+ 
+     if (systemPrompt === '') {
+       alert("Systemprompten får inte vara tom.");
+       return;
+     }
+ 
+     // Återställ konversationshistoriken
+     conversationHistory = [];
+ 
+     // Rensa meddelanden från chatten
+     const messageList = document.querySelector('.msa-chattbot__messages');
+     messageList.innerHTML = '';
+ 
+     // Informera användaren om att ny prompt aktiverats
+     createMessage('CHATTBOTT', 'Ny systemprompt har aktiverats. En ny konversation har påbörjats.');
+   });
+ </script>
+ 
  
 </body>
 </html>
