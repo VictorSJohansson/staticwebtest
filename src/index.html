@@ -359,5 +359,12 @@ function createMessage(user, message, links) {
    <h3>Systemprompt</h3>
    <textarea id="systemPrompt" placeholder="Skriv systemprompt här...">Du är en hjälpsam AI som ger vägledning till privatpersoner i Sverige.</textarea>
 </div>
+<script>
+   document.getElementById('togglePromptPanel').addEventListener('click', function () {
+     const panel = document.getElementById('promptPanel');
+     panel.classList.toggle('open');
+   });
+ </script>
+ 
 </body>
 </html>
