@@ -348,15 +348,15 @@ function createMessage(user, message, links) {
 <button id="togglePromptPanel" class="prompt-toggle">⚙️ Prompt</button>
 
 <!-- Själva sidopanelen -->
-<<div id="promptPanel" class="prompt-panel">
-   <h3>Systemprompt</h3>
-   <div class="prompt-panel-inner">
-     <textarea id="systemPrompt" placeholder="Skriv systemprompt här...">
- Du är en hjälpsam AI som ger vägledning till privatpersoner i Sverige.
-     </textarea>
-     <button id="applyPromptBtn" class="prompt-apply-btn">Använd systemprompt</button>
-   </div>
- </div>
+<div id="promptPanel" class="prompt-panel">
+  <h3>Systemprompt</h3>
+  <div class="prompt-panel-inner">
+    <textarea id="systemPrompt" placeholder="Skriv systemprompt här...">
+Du är en hjälpsam AI som ger vägledning till privatpersoner i Sverige.
+    </textarea>
+    <button id="applyPromptBtn" class="prompt-apply-btn">Använd systemprompt</button>
+  </div>
+</div>
 <script>
    document.getElementById('togglePromptPanel').addEventListener('click', function () {
      const panel = document.getElementById('promptPanel');
