@@ -355,6 +355,12 @@ function createMessage(user, message, links) {
 Du är en hjälpsam AI som ger vägledning till privatpersoner i Sverige.
     </textarea>
     <button id="applyPromptBtn" class="prompt-apply-btn">Använd systemprompt</button>
+    <label for="ragSlider"><strong>Antal dokument som ska användas:</strong></label>
+<div style="display: flex; align-items: center; gap: 10px;">
+  <input type="range" id="ragSlider" min="5" max="20" value="10" />
+  <span id="ragValue">10</span>
+</div>
+
   </div>
 </div>
 <script>
@@ -384,6 +390,16 @@ Du är en hjälpsam AI som ger vägledning till privatpersoner i Sverige.
      // Informera användaren om att ny prompt aktiverats
      createMessage('CHATTBOTT', 'Ny systemprompt har aktiverats. En ny konversation har påbörjats.');
    });
+   let ragDocLimit = 10; // standard
+
+const ragSlider = document.getElementById('ragSlider');
+const ragValue = document.getElementById('ragValue');
+
+ragSlider.addEventListener('input', function () {
+  ragDocLimit = parseInt(ragSlider.value, 10);
+  ragValue.textContent = ragDocLimit;
+});
+
  </script>
  
  

@@ -765,3 +765,6 @@ button.msa-guides-more-button--show-more::before {
   cursor: pointer;
   font-weight: bold;
 }
+#ragSlider {
+  width: 100%;
+}
