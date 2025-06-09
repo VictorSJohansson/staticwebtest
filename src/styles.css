@@ -722,6 +722,20 @@ button.msa-guides-more-button--show-more::before {
 }
 
 /*# sourceMappingURL=startsida-ai.css.map */
+.prompt-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  padding: 10px 14px;
+  background-color: #ce430b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
 .prompt-panel {
   position: fixed;
   top: 0;
