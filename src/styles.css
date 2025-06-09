@@ -746,11 +746,12 @@ button.msa-guides-more-button--show-more::before {
   display: flex;
   flex-direction: column;
   flex: 1;
+  overflow: hidden;
 }
 
 .prompt-panel-inner textarea {
   flex: 1;
-  resize: vertical;
+  resize: none;
   font-family: monospace;
   font-size: 14px;
   margin-bottom: 10px;
@@ -764,7 +765,10 @@ button.msa-guides-more-button--show-more::before {
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
+  width: 100%;
+  margin-bottom: 10px;
 }
+
 #ragSlider {
   width: 100%;
 }
