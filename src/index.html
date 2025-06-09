@@ -349,20 +349,22 @@ function createMessage(user, message, links) {
 
 <!-- Själva sidopanelen -->
 <div id="promptPanel" class="prompt-panel">
-  <h3>Systemprompt</h3>
-  <div class="prompt-panel-inner">
-    <textarea id="systemPrompt" placeholder="Skriv systemprompt här...">
-Du är en hjälpsam AI som ger vägledning till privatpersoner i Sverige.
-    </textarea>
-    <button id="applyPromptBtn" class="prompt-apply-btn">Använd systemprompt</button>
-    <label for="ragSlider"><strong>Antal dokument som ska användas:</strong></label>
-<div style="display: flex; align-items: center; gap: 10px;">
-  <input type="range" id="ragSlider" min="5" max="20" value="10" />
-  <span id="ragValue">10</span>
-</div>
-
-  </div>
-</div>
+   <h3>Systemprompt</h3>
+   <div class="prompt-panel-inner">
+     <textarea id="systemPrompt" placeholder="Skriv systemprompt här...">
+ Du är en hjälpsam AI som ger vägledning till privatpersoner i Sverige.
+     </textarea>
+ 
+     <button id="applyPromptBtn" class="prompt-apply-btn">Använd systemprompt</button>
+ 
+     <label for="ragSlider" style="margin-top: 1em;"><strong>Antal dokument som ska användas:</strong></label>
+     <div style="display: flex; align-items: center; gap: 10px;">
+       <input type="range" id="ragSlider" min="5" max="20" value="10" />
+       <span id="ragValue">10</span>
+     </div>
+   </div>
+ </div>
+ 
 <script>
    document.getElementById('togglePromptPanel').addEventListener('click', function () {
      const panel = document.getElementById('promptPanel');
@@ -370,13 +372,26 @@ Du är en hjälpsam AI som ger vägledning till privatpersoner i Sverige.
    });
  </script>
  <script>
-   let systemPrompt = document.getElementById('systemPrompt').value; // default prompt
+   let systemPrompt = document.getElementById('systemPrompt').value.trim();
+   let ragDocLimit = parseInt(document.getElementById('ragSlider')?.value || 10, 10); // fallback till 10 om element saknas
  
+   // Lyssna på ändringar i slider-värdet
+   const ragSlider = document.getElementById('ragSlider');
+   const ragValue = document.getElementById('ragValue');
+ 
+   if (ragSlider && ragValue) {
+     ragSlider.addEventListener('input', function () {
+       ragDocLimit = parseInt(ragSlider.value, 10);
+       ragValue.textContent = ragDocLimit;
+     });
+   }
+ 
+   // När användaren klickar "Använd systemprompt"
    document.getElementById('applyPromptBtn').addEventListener('click', function () {
      systemPrompt = document.getElementById('systemPrompt').value.trim();
  
      if (systemPrompt === '') {
-       alert("Systemprompten får inte vara tom. ");
+       alert("Systemprompten får inte vara tom.");
        return;
      }
  
@@ -387,20 +402,11 @@ Du är en hjälpsam AI som ger vägledning till privatpersoner i Sverige.
      const messageList = document.querySelector('.msa-chattbot__messages');
      messageList.innerHTML = '';
  
-     // Informera användaren om att ny prompt aktiverats
+     // Informera användaren
      createMessage('CHATTBOTT', 'Ny systemprompt har aktiverats. En ny konversation har påbörjats.');
    });
-   let ragDocLimit = 10; // standard
-
-const ragSlider = document.getElementById('ragSlider');
-const ragValue = document.getElementById('ragValue');
-
-ragSlider.addEventListener('input', function () {
-  ragDocLimit = parseInt(ragSlider.value, 10);
-  ragValue.textContent = ragDocLimit;
-});
-
  </script>
+ 
  
  
 </body>
