@@ -159,44 +159,37 @@
    </div>
 </div>
 <script>
-let conversationHistory = [];  // Lagra konversationshistoriken här
+let conversationHistory = [];  
 
 document.getElementById('startChatt').addEventListener('click', function() {
-    // Hämta värdet från textrutan och rensa textfältet
     const textarea = document.querySelector('.msa-chattbot__input textarea');
     const question = textarea.value.trim();
 
-    // Kontrollera att frågan inte är tom
     if (question === '') {
         alert('Skriv en fråga innan du skickar!');
         return;
     }
 
-    // Logga frågan för att säkerställa att vi skickar rätt data
     console.log('Sending question:', question);
     createMessage('USER', question);
 
-    // Lägg till användarens fråga i konversationshistoriken
     conversationHistory.push({ role: 'user', content: question });
-
-    // Rensa textfältet
     textarea.value = '';
 
     document.querySelector('.msa-chattbot').classList.add('msa-chattbot--active');
 
-    // Skapa ett element för de tre punkterna och visa dem direkt
     const typingMessage = createTypingMessage();
 
     // Skapa en POST-request
-    fetch('/api/message', {  // URL till din backend
+    fetch('/api/message', { 
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'  // Ange att vi skickar JSON
+            'Content-Type': 'application/json' 
         },
         body: JSON.stringify({ 
             question: question, 
-            conversationHistory: conversationHistory  // Skicka med konversationshistoriken 
-        })  // Skicka frågan som en JSON-sträng
+            conversationHistory: conversationHistory  
+        })  
     })
     .then(response => {
       if (!response.ok) {
@@ -208,25 +201,21 @@ document.getElementById('startChatt').addEventListener('click', function() {
       return response.text();
     })
     .then(data => {
-        // Hantera svaret från servern
         const parseddata = JSON.parse(data);
         console.log("Data: ", parseddata);
 
         // Hämta chatbotens meddelande och länkar
-        const chatbotMessage = parseddata.content;  // Hämta chatbotens meddelande
-        const links = parseddata.links || [];  // Hämta länkar om de finns
+        const chatbotMessage = parseddata.content;  
+        const links = parseddata.links || [];  
 
-        // Lägg till chattbottens svar i konversationshistoriken
         conversationHistory.push({ role: 'assistant', content: chatbotMessage });
 
         // Processa chatbotens meddelande för att lägga till länkar och ersätta [docX]
         const finalMessage = processMessage(chatbotMessage, links);
 
-        // Ta bort de tre punkterna (den väntande indikatorn)
         removeTypingMessage(typingMessage);
 
-        // Uppdatera chatten med det bearbetade meddelandet
-        createMessage('CHATTBOTT', finalMessage);  // Uppdatera chatten med meddelandet
+        createMessage('CHATTBOTT', finalMessage);  
 
         console.log('Success:', finalMessage);
     })
@@ -260,11 +249,11 @@ function createTypingMessage() {
 
     document.querySelector('.msa-chattbot__messages').appendChild($message);
     
-    return $message;  // Returnera elementet så att vi kan ta bort det senare
+    return $message;  
 }
 
 function removeTypingMessage(typingMessage) {
-    typingMessage.remove();  // Ta bort de tre punkterna när svaret kommer
+    typingMessage.remove();  
 }
 
 function processMessage(message, links) {
@@ -280,7 +269,7 @@ function processMessage(message, links) {
             sources[docNumber] = links[docNumber - 1];
             return `<strong>(${docNumber})</strong>`;
         } else {
-            return `(X)`; // If no link exists for the docX
+            return `(X)`;
         }
     });
 
@@ -299,7 +288,6 @@ function processMessage(message, links) {
             <a href="https://www.trafikverket.se" target="_blank">Trafikverket</a>.</p>`;
     }
 
-    // Returnera hela meddelandet inklusive källor
     return processedMessage + "<br/><br/>" + sourcesSection;
 }
 
@@ -318,7 +306,7 @@ function createMessage(user, message, links) {
     document.querySelector('.msa-chattbot__messages').appendChild($message);
 
     const $messageText = document.createElement('span');
-    $messageText.style.whiteSpace = 'pre-wrap';  // Bevarar radbrytningar
+    $messageText.style.whiteSpace = 'pre-wrap'; 
     $messageText.innerHTML = message;
     (links || []).forEach(({ label, url }) => {
         let $link = document.createElement('a');
@@ -340,6 +328,15 @@ function createMessage(user, message, links) {
 </div>
 </div>
 </div>
+<!-- Toggle-knapp -->
+<button id="togglePromptPanel" class="prompt-toggle">⚙️ Prompt</button>
+
+<!-- Själva sidopanelen -->
+<div id="promptPanel" class="prompt-panel">
+   <h3>Systemprompt</h3>
+   <textarea id="systemPrompt" placeholder="Skriv systemprompt här...">Du är en hjälpsam AI som ger vägledning till privatpersoner i Sverige.</textarea>
+</div>
+
 </div>
 <div class="sv-vertical sv-layout sv-template-layout" id="svid10_13948c0e18e810bfa0c47a4"><div id="svid94_13948c0e18e810bfa0c48c1" class="pagecontent sv-layout"><div id="Innehall"><!-- Innehåll --></div><div class="sv-fluid-grid tolvkolumn sv-layout sv-skip-spacer" style="max-width: 1488px; padding: 0 30px; width: 100%; box-sizing: border-box;" id="svid10_13948c0e18e810bfa0c4957"><div class="sv-text-portlet sv-use-margins sv-skip-spacer" style="padding-top:2em;padding-bottom:1em" id="svid12_13948c0e18e810bfa0c495a"><div id="Vadkanvihjalpadigmed"><!-- Vad kan vi hjälpa dig med? --></div><div class="sv-text-portlet-content"><h2 class="underrubrikxxh2x" id="h-sv-default-anchor"><a id="vadkanvihjalpadigmed"></a>Vad kan vi hjälpa dig med?</h2></div></div>
 <div class="sv-script-portlet sv-portlet" id="svid12_13948c0e18e810bfa0c495d"><div id="Omradeslankar"><!-- Områdeslänkar --></div><script>
